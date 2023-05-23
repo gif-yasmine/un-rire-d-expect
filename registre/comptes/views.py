@@ -4,6 +4,7 @@ from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import registreForm
+from formulaires.models import Person, spirit, scolaire, professionnal
 # Create your views here.
 
 # formulaire de connexion
@@ -55,7 +56,11 @@ def deconnexion(request):
 
 # page de connexion
 def index(request):
-    return render(request, 'pages/index.html')
+    membres = Person.objects.all()
+    context={
+        'membres': membres
+    }
+    return render(request, 'pages/index.html', context)
 
 # page profil
 def profil(request):
