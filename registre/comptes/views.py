@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.views.generic.edit import UpdateView
+from django.urls import reverse_lazy
 from django.contrib import messages
 from .forms import registreForm
 # Create your views here.
@@ -17,7 +19,7 @@ def connexion(request):
             login(request, user)
             return redirect('index')
         else:
-            messages.error(request, "Mots de passe ou Username incorrecte")
+            messages.info(request, "Mots de passe ou Username incorrecte")
         
     return render(request,'connexion.html')
 
@@ -37,10 +39,19 @@ def registre(request):
     }         
     return render(request, 'registre.html',context)
 
+# vue de modification de parametre
+
+# class VotreModeleUpdateView(UpdateView):
+    
+    # model = VotreModele
+    # fields = ['champ1', 'champ2', ...]
+    # template_name_suffix = '_update_form'
+    # success_url = reverse_lazy('nom-de-la-page-de-success')
+
 # déconnexion d'un compte
 def deconnexion(request):
     logout(request)
-    return render(request,'connexion.html')
+    return redirect('connexion')
 
 # page de connexion
 def index(request):
