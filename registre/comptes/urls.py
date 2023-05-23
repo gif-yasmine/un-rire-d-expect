@@ -9,4 +9,5 @@ urlpatterns = [
     path('index',views.index, name='index'),
     path('deconnexion',views.deconnexion,name="deconnexion"),
     path('profil', views.profil, name="profil"),
+    path('<int:person_id>/', views.details, name="details"),
 ]

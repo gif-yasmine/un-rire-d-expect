@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
@@ -61,6 +61,15 @@ def index(request):
         'membres': membres
     }
     return render(request, 'pages/index.html', context)
+
+def details(request, person_id):
+    context = {
+        'person': get_object_or_404(Person, pk=person_id),
+        'spirit': get_object_or_404(spirit, pk=person_id),
+        'scolaire': get_object_or_404(scolaire, pk=person_id),
+        'professionnal': get_object_or_404(professionnal, pk=person_id),
+    }
+    return render(request, 'pages/details.html', context)
 
 # page profil
 def profil(request):
