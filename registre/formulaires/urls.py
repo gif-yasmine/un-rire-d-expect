@@ -6,6 +6,6 @@ urlpatterns =[
     path('form2',views.spirituel, name= 'form2'),
     path('form3',views.education, name="form3"),
     path('form4',views.professionel, name="form4"),
-    path('error_404',views.error_404, name="error_404"),
-    path('success',views.success, name='success')
+    path('success',views.success, name="success"),
+    path('error',views.error_404, name="error"),
 ]
