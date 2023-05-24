@@ -10,7 +10,7 @@
   </div><!-- End Logo -->
 
   <div class="search-bar">
-    <form class="search-form d-flex align-items-center" method="POST" action="#">
+    <form class="search-form d-flex align-items-center" method="get" action="{% url 'recherche' %}">
       <input type="text" name="query" placeholder="Search" title="Enter search keyword">
       <button type="submit" title="Search"><i class="bi bi-search"></i></button>
     </form>
@@ -27,23 +27,23 @@
 
       <li class="nav-item dropdown">
 
-        <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+        {% comment %} <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
           <i class="bi bi-bell"></i>
-          <span class="badge bg-primary badge-number">4</span>
+          <span class="badge bg-primary badge-number">4</span> {% endcomment %}
         </a><!-- End Notification Icon -->
 
         <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow notifications">
-          <li class="dropdown-header">
+          {% comment %} <li class="dropdown-header">
             You have 4 new notifications
             <a href="#"><span class="badge rounded-pill bg-primary p-2 ms-2">View all</span></a>
-          </li>
-          <li>
+          </li> {% endcomment %}
+          {% comment %} <li>
             <hr class="dropdown-divider">
           </li>
 
           <li class="notification-item">
-            <i class="bi bi-exclamation-circle text-warning"></i>
-            <div>
+            <i class="bi bi-exclamation-circle text-warning"></i> {% endcomment %}
+            {% comment %} <div>
               <h4>Lorem Ipsum</h4>
               <p>Quae dolorem earum veritatis oditseno</p>
               <p>30 min. ago</p>
@@ -94,9 +94,9 @@
           </li>
           <li class="dropdown-footer">
             <a href="#">Show all notifications</a>
-          </li>
+          </li> {% endcomment %}
 
-        </ul><!-- End Notification Dropdown Items -->
+        {% comment %} </ul><!-- End Notification Dropdown Items -->
 
       </li><!-- End Notification Nav -->
 
@@ -160,7 +160,7 @@
 
           <li class="dropdown-footer">
             <a href="#">Show all messages</a>
-          </li>
+          </li> {% endcomment %}
 
         </ul><!-- End Messages Dropdown Items -->
 
@@ -245,8 +245,8 @@
       </a>
       <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
         <li>
-          <a href="tables-general.html">
-            <i class="bi bi-circle"></i><span>General Tables</span>
+          <a href="{% url 'graph' %}">
+            <i class="bi bi-circle"></i><span>Statistiques</span>
           </a>
         </li>
         <li>

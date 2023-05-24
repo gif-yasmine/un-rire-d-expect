@@ -3,6 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.db.models import Q
 from .forms import registreForm
 from formulaires.models import Person, spirit, scolaire, professionnal
 # Create your views here.
@@ -78,3 +79,63 @@ def profil(request):
         'user': user
     }
     return render(request, 'pages/profil.html', context)
+
+# page graph
+def graph(request):
+    hommes = Person.objects.filter(genre="masculin")
+    femmes = Person.objects.filter(genre="feminin")
+    employer = professionnal.objects.filter(working="oui")
+    chomeur = professionnal.objects.filter(working="non")
+    Nbremployer = employer.count()
+    Nbrechomeur = chomeur.count()
+    Nbrehommes = hommes.count()
+    Nbrefemmes = femmes.count()
+    total = Nbrehommes + Nbrefemmes
+    pour_employer = (Nbremployer / total )* 100
+    pour_chomeur = (Nbrechomeur / total )* 100 
+    pour_hommes = (Nbrehommes / total )* 100
+    pour_femmes = (Nbrefemmes / total )* 100
+    context={
+        'hommes': hommes,
+        'femmes': femmes,
+        'Nbrehommes': Nbrehommes,
+        'Nbrefemmes': Nbrefemmes,
+        'pour_hommes': pour_hommes,
+        'pour_femmes': pour_femmes,
+        'total': total,
+        'pour_employer': pour_employer,
+        'pour_chomeur': pour_chomeur,
+        'Nbremployer': Nbremployer,
+        'Nbrechomeur': Nbrechomeur,
+        'employer' : employer,
+        'chomeur' : chomeur
+    }
+    return render(request, 'pages/graph.html', context)
+
+def recherche(request):
+    query = request.GET.get('q')
+    if query:
+        context = {
+            'results' : Person.objects.filter(Q(name__icontains=query) | Q(prenoms__icontains=query)),
+            'resultats' : professionnal.objects.filter(Q(domaine__icontains=query | Q(metier__icontains=query)))
+        }
+    else:
+        context ={
+            'results' : [],
+            'resultats' : []
+        }
+    return render(request, 'pages/index.html', context)
+
+def resultats(request):
+    query = request.GET.get('q')
+    if query:
+        context = {
+            'results' : Person.objects.filter(Q(name__icontains=query) | Q(prenoms__icontains=query)),
+            'resultats' : professionnal.objects.filter(Q(domaine__icontains=query | Q(metier__icontains=query)))
+        }
+    else:
+        context ={
+            'results' : [],
+            'resultats' : []
+        }
+    return render(request, 'pages/resultats.html', context)
