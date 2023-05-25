@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required 
 from django.views.generic.edit import UpdateView
 from django.urls import reverse_lazy
 from django.contrib import messages
@@ -10,6 +11,8 @@ from formulaires.models import Person, spirit, scolaire, professionnal
 
 # formulaire de connexion
 def connexion(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == "POST":
         username = request.POST.get("username")
         password = request.POST.get("password")
@@ -27,6 +30,8 @@ def connexion(request):
 
 # formulaire de création de compte
 def registre(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     form = registreForm(request.POST)
     if request.method == "POST":
         if form.is_valid():
@@ -51,11 +56,14 @@ def registre(request):
     # success_url = reverse_lazy('nom-de-la-page-de-success')
 
 # déconnexion d'un compte
+@login_required
 def deconnexion(request):
     logout(request)
     return redirect('connexion')
 
+
 # page de connexion
+@login_required
 def index(request):
     membres = Person.objects.all()
     context={
@@ -63,6 +71,7 @@ def index(request):
     }
     return render(request, 'pages/index.html', context)
 
+@login_required
 def details(request, person_id):
     context = {
         'person': get_object_or_404(Person, pk=person_id),
@@ -73,6 +82,7 @@ def details(request, person_id):
     return render(request, 'pages/details.html', context)
 
 # page profil
+@login_required
 def profil(request):
     user = request.user
     context = {
@@ -81,6 +91,7 @@ def profil(request):
     return render(request, 'pages/profil.html', context)
 
 # page graph
+@login_required
 def graph(request):
     hommes = Person.objects.filter(genre="masculin")
     femmes = Person.objects.filter(genre="feminin")
@@ -112,6 +123,7 @@ def graph(request):
     }
     return render(request, 'pages/graph.html', context)
 
+@login_required
 def recherche(request):
     query = request.GET.get('q')
     if query:
@@ -126,6 +138,7 @@ def recherche(request):
         }
     return render(request, 'pages/index.html', context)
 
+@login_required
 def resultats(request):
     query = request.GET.get('q')
     if query:

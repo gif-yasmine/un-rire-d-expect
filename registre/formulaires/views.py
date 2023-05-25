@@ -5,6 +5,8 @@ from .models import Person, spirit , scolaire, professionnal
 
 # vue d'enregistrement du formulaire d'identification
 def identification(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == "POST":
         name = request.POST.get('name')
         prenoms = request.POST.get('prenoms')
@@ -32,6 +34,8 @@ def identification(request):
 
 # vue d'enregistrement du formulaire spirituel
 def spirituel(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == "POST":
         baptism_water = request.POST.get('water')
         date = request.POST.get('date')
@@ -63,6 +67,8 @@ def spirituel(request):
 
 # # vue d'enregistrement du formulaire d'education
 def education(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == "POST":
         niveau = request.POST.get('level')
         diplomes = request.POST.get('diplomes')
@@ -90,6 +96,8 @@ def education(request):
 
 # # vue d'enregistrement du formulaire de profession
 def professionel(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     if request.method == "POST":
         domaines = request.POST.get("domaines")
         travail = request.POST.get("travail")
@@ -122,6 +130,8 @@ def professionel(request):
 
 # pages succes
 def success(request):
+    if request.user.is_authenticated:
+        return redirect('index')
     return render(request, 'pages/success.html')
 
 # page d'erreur 404
