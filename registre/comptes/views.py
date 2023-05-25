@@ -56,23 +56,33 @@ def registre(request):
     # success_url = reverse_lazy('nom-de-la-page-de-success')
 
 # déconnexion d'un compte
-@login_required
+
 def deconnexion(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')
+    if not request.user.is_authenticated:
+        return redirect('connexion')
     logout(request)
     return redirect('connexion')
 
 
 # page de connexion
-@login_required
+# 
 def index(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')
+    if not request.user.is_authenticated:
+        return redirect('connexion')
     membres = Person.objects.all()
     context={
         'membres': membres
     }
     return render(request, 'pages/index.html', context)
 
-@login_required
+
 def details(request, person_id):
+    if not request.user.is_authenticated:
+        return redirect('connexion')
     context = {
         'person': get_object_or_404(Person, pk=person_id),
         'spirit': get_object_or_404(spirit, pk=person_id),
@@ -82,8 +92,10 @@ def details(request, person_id):
     return render(request, 'pages/details.html', context)
 
 # page profil
-@login_required
+
 def profil(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')
     user = request.user
     context = {
         'user': user
@@ -91,8 +103,10 @@ def profil(request):
     return render(request, 'pages/profil.html', context)
 
 # page graph
-@login_required
+
 def graph(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')
     hommes = Person.objects.filter(genre="masculin")
     femmes = Person.objects.filter(genre="feminin")
     employer = professionnal.objects.filter(working="oui")
@@ -123,8 +137,10 @@ def graph(request):
     }
     return render(request, 'pages/graph.html', context)
 
-@login_required
+
 def recherche(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')
     query = request.GET.get('q')
     if query:
         context = {
@@ -138,8 +154,10 @@ def recherche(request):
         }
     return render(request, 'pages/index.html', context)
 
-@login_required
+
 def resultats(request):
+    if not request.user.is_authenticated:
+        return redirect('connexion')
     query = request.GET.get('q')
     if query:
         context = {
