@@ -48,12 +48,7 @@ def registre(request):
 
 # vue de modification de parametre
 
-# class VotreModeleUpdateView(UpdateView):
-    
-    
-    # fields = ['champ1', 'champ2', ...]
-    # template_name_suffix = '_update_form'
-    # success_url = reverse_lazy('nom-de-la-page-de-success')
+
 
 # déconnexion d'un compte
 
