@@ -50,7 +50,7 @@ def registre(request):
 
 # class VotreModeleUpdateView(UpdateView):
     
-    # model = VotreModele
+    
     # fields = ['champ1', 'champ2', ...]
     # template_name_suffix = '_update_form'
     # success_url = reverse_lazy('nom-de-la-page-de-success')
