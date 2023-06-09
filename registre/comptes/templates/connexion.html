@@ -28,7 +28,7 @@
                       <p class="text-center small">Entrer vos identifiants</p>
                       {% csrf_token %}
                       {% for info in messages %}
-                      <p style="color:blue">{{ info }}</p>
+                      <p id=" info"class='alert alert-danger text-center' >{{ info }}</p>
                       {%endfor%}
                     </div>
                     <form class="row g-3 needs-validation" novalidate method="POST">
