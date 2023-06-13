@@ -339,7 +339,7 @@
 
   <main id="main" class="main">
 
-    <div class="pagetitle">
+    {% comment %} <div class="pagetitle">
       <h1>Data Tables</h1>
       <nav>
         <ol class="breadcrumb">
@@ -348,7 +348,7 @@
           <li class="breadcrumb-item active">Data</li>
         </ol>
       </nav>
-    </div><!-- End Page Title -->
+    </div><!-- End Page Title --> {% endcomment %}
 
     <section class="section">
       <div class="row">
@@ -360,7 +360,42 @@
               <p>Add lightweight datatables to your project with using the <a href="https://github.com/fiduswriter/Simple-DataTables" target="_blank">Simple DataTables</a> library. Just add <code>.datatable</code> class name to any table you wish to conver to a datatable</p>
 
               <!-- Table with stripped rows -->
-              
+              <table class="table datatable">
+                <thead>
+                        <tr>
+                          <th scope="col">ID</th>
+                          <th scope="col">Nom</th>
+                          <th scope="col">Prénoms</th>
+                          <th scope="col">Numéro</th>
+                          <th scope="col">Résidence</th>
+                          <th scope="col">Marié</th>
+                          <th scope="col">Genre</th>
+                          <th scope="col">Details</th>                        
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {% for membre in membres  %}
+                        <tr>
+                          
+                          <th scope="row">{{ membre.id }}</a></th>
+                          <td>{{membre.name}} </td>
+                          <td>{{membre.prenoms}}</td>
+                          <td>{{membre.numero}}</td>
+                          <td>{{membre.location}}</td>
+                          <td>{{membre.status}}</td>
+                          <td>{{membre.genre}}</td>
+                          
+                          <style>
+                            .white{
+                              color:white;
+                            }
+                          </style>
+                          <td><a class="white"href="{% url 'details' membre.id %}"><button type="submit" class="btn btn-primary">Détails</button></a></td>
+                          
+                        </tr> 
+                        {% endfor %}                     
+                      </tbody>
+              </table>
               <!-- End Table with stripped rows -->
 
             </div>
