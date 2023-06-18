@@ -209,7 +209,34 @@ def stat3(request):
     return render(request, 'pages/stat3.html', context)
 
 def stat4(request):
+    men = Person.objects.filter(genre="masculin")
+    women = Person.objects.filter(genre="feminin")
+    maried = Person.objects.filter(status="Marié")
+    fianced = Person.objects.filter(status="Fiancé")
+    widow = Person.objects.filter(status="Veuf")
+    celibataire = Person.objects.filter(status="Celibataire")
+    number_men = men.count()
+    number_women = women.count()
+    total = number_men + number_women
+    number_maried = maried.count()
+    number_celibataire = celibataire.count()
+    number_fianced = fianced.count()
+    number_widow = widow.count()
+    pourcent_maried = (number_maried / total )* 100
+    pourcent_celibataire = (number_celibataire / total )* 100
+    pourcent_fianced = (number_fianced / total )* 100
+    pourcent_widow = (number_widow / total )* 100
     context = {
-                
-    }
+        'number_men': number_men,
+        'number_women': number_women,
+        'number_maried': number_maried,
+        'number_celibataire': number_celibataire,
+        'number_fianced': number_fianced,
+        'number_widow': number_widow,
+        'pourcent_maried': pourcent_maried,
+        'pourcent_celibataire': pourcent_celibataire,
+        'pourcent_fianced': pourcent_fianced,
+        'pourcent_widow': pourcent_widow,
+        'total': total
+    }    
     return render(request, 'pages/stat4.html', context)
