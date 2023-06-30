@@ -66,9 +66,11 @@ def deconnexion(request):
 def index(request):
     if not request.user.is_authenticated:
         return redirect('connexion')
-    membres = Person.objects.all()
+    membres = Person.objects.all().order_by('name')
+    metier = professionnal.objects.all()
     context={
-        'membres': membres
+        'membres': membres,
+        'metier': metier
     }
     return render(request, 'pages/index.html', context)
 
