@@ -44,7 +44,7 @@
                       </div>
                       <div class="col-md-6">
                         <label for="inputNumber" class="form-label">Numéro</label>
-                        <input type="number" name="numero" class="form-control" id="inputNumber" placeholder="0798395774">
+                        <input type="number" name="numero" class="form-control" id="inputNumber" placeholder="0798395774" maxlength="10" />
                       </div>
                       <div class="col-md-12">
                         <label for="inputDate" class="form-label">Date de naissance</label>
@@ -177,6 +177,22 @@
 
     </div>
   </main><!-- End #main -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var inputElement = document.getElementById('inputNumber');
+  
+      inputElement.addEventListener('input', function() {
+        var inputValue = inputElement.value;
+        var numericValue = inputValue.replace(/\D/g, ''); // Supprime tous les caractères non numériques
+  
+        if (numericValue.length > 10) {
+          numericValue = numericValue.slice(0, 10); // Limite le nombre de chiffres à 10
+        }
+  
+        inputElement.value = numericValue;
+      });
+    });
+  </script>
 
 {% comment %} <footer>
    {% include 'main/footer.html' %}

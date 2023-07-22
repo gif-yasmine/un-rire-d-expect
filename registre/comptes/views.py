@@ -66,11 +66,9 @@ def deconnexion(request):
 def index(request):
     if not request.user.is_authenticated:
         return redirect('connexion')
-    membres = Person.objects.all().order_by('name')
-    metier = professionnal.objects.all()
+    membres = professionnal.objects.select_related('person__person__person').all().order_by()
     context={
-        'membres': membres,
-        'metier': metier
+        'membres': membres
     }
     return render(request, 'pages/index.html', context)
 
@@ -90,24 +88,11 @@ def details(request, person_id):
 
 def profil(request):
     if not request.user.is_authenticated:
-        return redirect('connexion')
-    
-    # obj = get_object_or_404(User, pk=pk)
-    # if request.method == 'POST':
-    #     nom = request.POST.get("Nom")
-    #     prenoms = request.POST.get("Prenoms")
-    #     description = request.POST.get("Description")
-    #     email = request.POST.get("email")
-        
-    #     obj.last_name = nom
-    #     obj.first_name = prenoms
-    #     obj.email = email
-        
+        return redirect('connexion')      
     
     user = request.user
     context = {
         'user': user,
-        # 'obj': obj
     }
     
         
@@ -242,3 +227,9 @@ def stat4(request):
         'total': total
     }    
     return render(request, 'pages/stat4.html', context)
+
+def domaines(request):
+    context = {
+        # 'doms': doms
+    }
+    return render(request, 'pages/domaines.html', context)

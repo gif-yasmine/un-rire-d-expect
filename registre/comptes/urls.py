@@ -13,4 +13,5 @@ urlpatterns = [
     path('stat2',views.stat2, name="stat2"),
     path('stat3',views.stat3, name="stat3"),
     path('stat4',views.stat4, name="stat4"),
+    path('domaines',views.domaines, name="domaines")
 ]
